@@ -13,8 +13,8 @@
             height:75vh;
         }
 	</style>
-	<h:outputScript>
-	<![CDATA[
+	<script>
+	//<![CDATA[
 	var customLabel = {
 			pointRelais: {
 				label: 'PR'
@@ -23,16 +23,15 @@
 				label: 'P'
 			}
 		};
-
 	    function initMap() {
 	        var map = new google.maps.Map(document.getElementById('map'), {
-	          center: new google.maps.LatLng(48.856614, 2.352222),
-	          zoom: 8
+	          center: new google.maps.LatLng(#{mbMap.lat}, #{mbMap.longi}),
+	          zoom: 10
 	        });
+	
 	        var infoWindow = new google.maps.InfoWindow;
 			var markerTab = [];
 			
-	          // Change this depending on the name of your PHP or XML file
 	            var markers = {
 					"marker": [
 						{"name": "Ferme de Paris", "address": "1 route de Pesage, 75012 Paris, France", "lat": "48.822477", "lng": "2.444399", "type": "producteur"},
@@ -72,20 +71,41 @@
 					markerTab.push(markerElem);
 					}());
 				}
-				var markerCluster = new MarkerClusterer(map, markerTab,
-	            {imagePath: 'resources/images/m'});
-				
+	            var mcOptions = {imagePath: 'resources/images/m'};
+				var markerCluster = new MarkerClusterer(map, markerTab, mcOptions);
 	          }
-	    ]]>
-	</h:outputScript>
+		function centrer() {
+			map.panTo(#{mbMap.lat}, #{mbMap.longi});
+		}
+	    //]]>
+	</script>
 	<h:outputScript library="js" name="markerclusterer.js"/>
-	<h:outputScript library="js" name="script_accueil.js"/>
 	<script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCf-7j3fGn9ixB1w2exeFysSJtWlWUYiFc 	
 &amp;callback=initMap"></script>
 </h:head> 
 <body> 
 	<h:form>
 		<div id="map"></div>
+		<h:inputText value="#{mbMap.centre}" />
+		<h:commandButton action="#{mbMap.click()}" onclick="centrer()" value="Centrer" />
+		<!--  
+		<h:commandButton value="Centrer" >
+			<f:ajax listener="#{mbMap.click()}" execute="@form" render="toto" onevent="coucou"></f:ajax>
+		</h:commandButton>
+		<h:panelGroup id="toto">
+			<h:inputHidden value="#{mbMap.lat}" />
+			<h:inputHidden value="#{mbMap.longi}" />
+		</h:panelGroup>
+		-->
 	</h:form>
+	<!--
+	<script type="text/javascript">
+	function coucou(data) {
+		if(data.status == "success") {
+
+		}
+	}
+	</script>
+	-->
 </body> 
 </html>
