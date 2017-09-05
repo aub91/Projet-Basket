@@ -5,8 +5,6 @@ import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
@@ -25,7 +23,7 @@ public class MapManagedBean {
     	GeoApiContext context = new GeoApiContext.Builder().apiKey(apiKey).build();
 			GeocodingResult[] results;
 			try {
-				results = GeocodingApi.geocode(context, centre).await();
+				results = GeocodingApi.geocode(context, centre).region("fr").await();
 				lat = String.valueOf(results[0].geometry.location.lat);
 				longi = String.valueOf(results[0].geometry.location.lng);
 				zoom = "14";

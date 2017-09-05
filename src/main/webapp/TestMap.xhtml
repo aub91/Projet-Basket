@@ -13,6 +13,35 @@
             height:75vh;
         }
 	</style>
+	
+	<h:outputScript library="js" name="markerclusterer.js"/>
+	<script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key=#{mbMap.apiKey} 	
+&amp;callback=initMap"></script>
+</h:head> 
+<body> 
+	<h:form>
+		<div id="map"></div>
+		<h:inputText value="#{mbMap.centre}" />
+		<h:commandButton action="#{mbMap.click()}" value="Centrer" />
+		<!--  
+		<h:commandButton value="Centrer" >
+			<f:ajax listener="#{mbMap.click()}" execute="@form" render="toto" onevent="coucou"></f:ajax>
+		</h:commandButton>
+		<h:panelGroup id="toto">
+			<h:inputHidden value="#{mbMap.lat}" />
+			<h:inputHidden value="#{mbMap.longi}" />
+		</h:panelGroup>
+		-->
+	</h:form>
+	<!--
+	<script type="text/javascript">
+	function coucou(data) {
+		if(data.status == "success") {
+
+		}
+	}
+	</script>
+	-->
 	<script>
 	//<![CDATA[
 	var customLabel = {
@@ -80,33 +109,5 @@
 		}
 	    //]]>
 	</script>
-	<h:outputScript library="js" name="markerclusterer.js"/>
-	<script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key=#{mbMap.apiKey} 	
-&amp;callback=initMap"></script>
-</h:head> 
-<body> 
-	<h:form>
-		<div id="map"></div>
-		<h:inputText value="#{mbMap.centre}" />
-		<h:commandButton action="#{mbMap.click()}" value="Centrer" />
-		<!--  
-		<h:commandButton value="Centrer" >
-			<f:ajax listener="#{mbMap.click()}" execute="@form" render="toto" onevent="coucou"></f:ajax>
-		</h:commandButton>
-		<h:panelGroup id="toto">
-			<h:inputHidden value="#{mbMap.lat}" />
-			<h:inputHidden value="#{mbMap.longi}" />
-		</h:panelGroup>
-		-->
-	</h:form>
-	<!--
-	<script type="text/javascript">
-	function coucou(data) {
-		if(data.status == "success") {
-
-		}
-	}
-	</script>
-	-->
 </body> 
 </html>
